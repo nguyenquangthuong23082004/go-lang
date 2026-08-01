@@ -5,12 +5,12 @@ import (
 	"math"
 )
 
-var khoanDauTu = 5000
-var laiSuatHangNam = 5.5
-var soNamDauTu = 3
+var khoanDauTu float64 = 5000
+var laiSuatHangNam float64 = 5.5
+var soNamDauTu float64 = 3
 var age int
 
-var giaTriTuongLai = float64(khoanDauTu) * math.Pow(1+laiSuatHangNam/100, float64(soNamDauTu))
+var giaTriTuongLai = khoanDauTu * math.Pow(1+laiSuatHangNam/100, soNamDauTu)
 
 func main() {
 	fmt.Println(age)

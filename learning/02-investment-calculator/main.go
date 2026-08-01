@@ -27,7 +27,10 @@ func main() {
 	fmt.Scan(&soNamDauTu)
 
 	giaTriTuongLai := khoanDauTu * math.Pow(1+laiSuatHangNam/100, soNamDauTu)
+	// formattedFV := fmt.Sprintf("Danh nghĩa: %.2f\n", giaTriTuongLai)
 	giaTriThucTe := giaTriTuongLai / math.Pow(1+tyLeLamPhat/100, soNamDauTu)
-	fmt.Println("Giá trị tương lai của khoản đầu tư", khoanDauTu, "là", giaTriTuongLai)
-	fmt.Println("Giá trị thực tế của khoản đầu tư", khoanDauTu, "là", giaTriThucTe)
+	// formattedRT := fmt.Sprintf("Thực tế (trừ lạm phát): %.2f\n", giaTriThucTe)
+	// fmt.Println("Giá trị tương lai của khoản đầu tư", khoanDauTu, "là", giaTriTuongLai)
+	// fmt.Println("Giá trị thực tế của khoản đầu tư", khoanDauTu, "là", giaTriThucTe)
+	fmt.Printf("Danh nghĩa: %.2f\nThực tế (trừ lạm phát): %.2f\n", giaTriTuongLai, giaTriThucTe)
 }

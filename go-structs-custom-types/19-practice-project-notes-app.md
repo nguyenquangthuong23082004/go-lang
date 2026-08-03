@@ -53,7 +53,20 @@ func getUserInput(prompt string) string {
 Để lưu trữ thông tin ghi chú và ghi nó ra file dưới dạng **JSON**, chúng ta sử dụng package `"encoding/json"` của Go:
 
 1. **Bắt buộc viết hoa tên trường (Exported Fields):** Package JSON hoạt động từ bên ngoài và chỉ có thể đọc các trường viết hoa chữ cái đầu (`Title`, `Content`, `CreatedAt`). Nếu để chữ thường, chuỗi JSON kết quả thu được sẽ trống rỗng `{}`.
-2. **Sử dụng Struct Tags:** Để các thuộc tính viết hoa của Go hiển thị đẹp đẽ dưới dạng chữ thường khi chuyển thành JSON, chúng ta gắn thêm tag phía sau thuộc tính:
+2. **Sử dụng Struct Tags (Siêu dữ liệu - Metadata):** Để các thuộc tính viết hoa của Go hiển thị đẹp đẽ dưới dạng chữ thường khi chuyển thành JSON, chúng ta gắn thêm tag phía sau thuộc tính:
+
+### 🌟 Tìm hiểu chi tiết về Struct Tags trong Go
+
+* **Struct Tags là gì?** Chúng là dạng siêu dữ liệu (**Metadata**) đính kèm vào các thuộc tính trong Struct. Bản chất các siêu dữ liệu này **không tự động làm gì cả** nếu không có một package hoặc đoạn mã nào đó đọc và xử lý chúng.
+* **Cú pháp viết Struct Tags:** 
+  * Sử dụng cặp dấu **Backticks (dấu huyền \` \` trên bàn phím)** bao bọc, tuyệt đối không dùng dấu nháy đơn `'` hay nháy kép `"`.
+  * Định dạng khai báo tag: `<tên_package_xử_lý>:"<tên_khóa_mong_muốn>"`. Ví dụ để gán khóa cho JSON, ta viết `json:"title"`.
+* **Cách hoạt động:** Khi chúng ta gọi `json.Marshal`, package `"encoding/json"` sẽ quét tìm siêu dữ liệu `json` này. Nếu tìm thấy, nó sẽ dùng tên khóa được khai báo trong dấu nháy kép (ví dụ: `title`, `created_at`) thay vì sử dụng tên thuộc tính viết hoa gốc (`Title`, `CreatedAt`).
+
+> [!IMPORTANT]
+> **Ý nghĩa cốt lõi của bài học (Core Takeaway):**
+> * **Tại sao JSON bị trống rỗng?** Gói chuyển đổi JSON (`json.Marshal`) thuộc thư viện chuẩn của Go hoạt động như một package bên ngoài. Nó dùng cơ chế *Reflection* và **chỉ có thể đọc các thuộc tính được xuất khẩu (Public - viết hoa chữ cái đầu)**. Các thuộc tính viết thường (Private) sẽ hoàn toàn bị bỏ qua khi chuyển sang JSON mà không báo lỗi gì.
+> * **Thêm phần mở rộng cho file:** Đảm bảo khi lưu file bằng `os.WriteFile` phải ghép thêm phần đuôi định dạng (ví dụ `+ ".json"`) để hệ điều hành nhận diện đúng loại file.
 
 ```go
 type Note struct {

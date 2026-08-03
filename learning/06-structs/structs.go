@@ -25,15 +25,15 @@ func main() {
 		createdAt: time.Now(),
 	}
 
-	// Gọi hàm xuất dữ liệu người dùng bằng cách truyền Struct
-	outputUserDetails(appUser)
+	// Gọi method trên instance của Struct
+	appUser.outputUserDetails()
 }
 
-func outputUserDetails(user User) {
-	fmt.Println("First Name:", user.firstName)
-	fmt.Println("Last Name:", user.lastName)
-	fmt.Println("Birthdate:", user.birthdate)
-	fmt.Println("Created At:", user.createdAt)
+func (u User) outputUserDetails() {
+	fmt.Println("First Name:", u.firstName)
+	fmt.Println("Last Name:", u.lastName)
+	fmt.Println("Birthdate:", u.birthdate)
+	fmt.Println("Created At:", u.createdAt)
 }
 
 func getUserData(promptText string) string {

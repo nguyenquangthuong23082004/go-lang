@@ -1,4 +1,4 @@
-# Bài 17: Tổng Kết Về Structs (Cấu Trúc Dữ Liệu) Trong Go
+# Bài 18: Tổng Kết Về Structs (Cấu Trúc Dữ Liệu) Trong Go
 
 > [!NOTE]
 > *Tổng kết toàn bộ các kiến thức cốt lõi đã học trong chương Structs và Custom Types.*

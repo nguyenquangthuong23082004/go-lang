@@ -6,6 +6,12 @@ import (
 	"example.com/structs/user"
 )
 
+type customString string
+
+func (text customString) log() {
+	fmt.Println(text)
+}
+
 func main() {
 	userFirstName := getUserData("Please enter your first name: ")
 	userLastName := getUserData("Please enter your last name: ")
@@ -35,6 +41,10 @@ func main() {
 	admin.OutputUserDetails()
 	admin.ClearUserName()
 	admin.OutputUserDetails()
+
+	fmt.Println("\n--- CUSTOM TYPE DEMO ---")
+	var name customString = "Max"
+	name.log()
 }
 
 func getUserData(promptText string) string {

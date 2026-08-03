@@ -2,53 +2,39 @@ package main
 
 import (
 	"fmt"
-	"time"
-)
 
-type User struct {
-	firstName string
-	lastName  string
-	birthdate string
-	createdAt time.Time
-}
+	"example.com/structs/user"
+)
 
 func main() {
 	userFirstName := getUserData("Please enter your first name: ")
 	userLastName := getUserData("Please enter your last name: ")
 	userBirthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
 
-	// Sử dụng constructor function để tạo đối tượng
-	var appUser *User = newUser(userFirstName, userLastName, userBirthdate)
+	// Sử dụng constructor function từ package user
+	appUser, err := user.New(userFirstName, userLastName, userBirthdate)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// Tạo đối tượng admin mới bằng NewAdmin
+	admin := user.NewAdmin("admin@example.com", "supersecret")
 
 	// Gọi method xuất dữ liệu lần đầu
-	appUser.outputUserDetails()
+	appUser.OutputUserDetails()
 
 	// Gọi method xóa tên người dùng (Pointer Receiver)
-	appUser.clearUserName()
+	appUser.ClearUserName()
 
 	// Xuất dữ liệu lần hai để kiểm tra
-	appUser.outputUserDetails()
-}
+	appUser.OutputUserDetails()
 
-func newUser(firstName, lastName, birthdate string) *User {
-	return &User{
-		firstName: firstName,
-		lastName:  lastName,
-		birthdate: birthdate,
-		createdAt: time.Now(),
-	}
-}
-
-func (u User) outputUserDetails() {
-	fmt.Println("First Name:", u.firstName)
-	fmt.Println("Last Name:", u.lastName)
-	fmt.Println("Birthdate:", u.birthdate)
-	fmt.Println("Created At:", u.createdAt)
-}
-
-func (u *User) clearUserName() {
-	u.firstName = ""
-	u.lastName = ""
+	fmt.Println("\n--- ADMIN DETAILS ---")
+	// Gọi trực tiếp các method của User trên đối tượng Admin (Anonymous Embedding)
+	admin.OutputUserDetails()
+	admin.ClearUserName()
+	admin.OutputUserDetails()
 }
 
 func getUserData(promptText string) string {
